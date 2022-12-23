@@ -28,8 +28,8 @@ export default function WorkoutForm() {
       setLoad("")
       setReps("")
       setTitle("")
-      setErrors(null)
-      setError([])
+      setErrors([])
+      setError(null)
       dispatch({ type: "ADD_WORKOUT", payload: json })
     }
   }
@@ -47,7 +47,7 @@ export default function WorkoutForm() {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Type Your Excercise"
         className={`${
-          errors && errors.includes("Title") ? "border border-red-400" : ""
+          errors.includes("Title") ? "border border-red-400" : ""
         } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <label className="text-base font-medium ">Load (in Kg) :</label>
@@ -57,7 +57,7 @@ export default function WorkoutForm() {
         onChange={(e) => setLoad(e.target.value)}
         placeholder="Type Your Load"
         className={`${
-          errors && errors.includes("Load") ? "border border-red-400" : ""
+          errors.includes("Load") ? "border border-red-400" : ""
         } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <label className="text-base font-medium ">Reps :</label>
@@ -67,7 +67,7 @@ export default function WorkoutForm() {
         onChange={(e) => setReps(e.target.value)}
         placeholder="Type Your Reps"
         className={`${
-          errors && errors.includes("Reps") ? "border border-red-400" : ""
+          errors.includes("Reps") ? "border border-red-400" : ""
         } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <button
