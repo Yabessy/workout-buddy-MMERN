@@ -10,7 +10,13 @@ export const workoutsReducer = (state, action) => {
       }
     case "ADD_WORKOUT":
       return {
-        workouts: [action.payload,...state.workouts],
+        workouts: [action.payload, ...state.workouts],
+      }
+    case "DELETE_WORKOUT":
+      return {
+        workouts: state.workouts.filter(
+          (workout) => workout._id !== action.payload._id
+        ),
       }
     default:
       return state
@@ -22,7 +28,7 @@ export const WorkoutsContextProvider = ({ children }) => {
     workouts: null,
   })
   return (
-    <WorkoutsContext.Provider value={{...state,dispatch}}>
+    <WorkoutsContext.Provider value={{ ...state, dispatch }}>
       {children}
     </WorkoutsContext.Provider>
   )
