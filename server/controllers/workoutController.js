@@ -19,6 +19,21 @@ const getSingleWorkout = async (req, res) => {
 
 const addWorkout = async (req, res) => {
   const { title, reps, load } = req.body
+  let errors = []
+  if (!title) {
+    errors.push("Title")
+  }
+  if (!reps) {
+    errors.push("Reps")
+  }
+  if (!load) {
+    errors.push("Load")
+  }
+  if (errors.length > 0) {
+    return res
+      .status(400)
+      .json({ error: `Please enter ${errors.join(", ")}`, errors })
+  }
   try {
     const workout = await Workout.create({ title, reps, load })
     res.status(200).json(workout)

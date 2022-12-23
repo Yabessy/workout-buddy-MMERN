@@ -6,6 +6,7 @@ export default function WorkoutForm() {
   const [title, setTitle] = useState("")
   const [load, setLoad] = useState("")
   const [reps, setReps] = useState("")
+  const [errors, setErrors] = useState([])
   const [error, setError] = useState(null)
 
   const handleSubmit = async (e) => {
@@ -20,13 +21,15 @@ export default function WorkoutForm() {
     })
     const json = await res.json()
     if (!res.ok) {
+      setErrors(json.errors)
       setError(json.error)
     }
     if (res.ok) {
       setLoad("")
       setReps("")
       setTitle("")
-      setError(null)
+      setErrors(null)
+      setError([])
       dispatch({ type: "ADD_WORKOUT", payload: json })
     }
   }
@@ -43,7 +46,9 @@ export default function WorkoutForm() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Type Your Excercise"
-        className="w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md"
+        className={`${
+          errors.includes("Title") ? "border border-red-400" : ""
+        } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <label className="text-base font-medium ">Load (in Kg) :</label>
       <input
@@ -51,7 +56,9 @@ export default function WorkoutForm() {
         value={load}
         onChange={(e) => setLoad(e.target.value)}
         placeholder="Type Your Load"
-        className="w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md"
+        className={`${
+          errors.includes("Load") ? "border border-red-400" : ""
+        } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <label className="text-base font-medium ">Reps :</label>
       <input
@@ -59,7 +66,9 @@ export default function WorkoutForm() {
         value={reps}
         onChange={(e) => setReps(e.target.value)}
         placeholder="Type Your Reps"
-        className="w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md"
+        className={`${
+          errors.includes("Reps") ? "border border-red-400" : ""
+        } w-full h-9 px-3 mb-4 text-base placeholder-gray-600 border rounded-lg focus:outline-none focus:shadow-md`}
       />
       <button
         type="submit"
