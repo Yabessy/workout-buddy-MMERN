@@ -1,10 +1,18 @@
 import { useWorkoutContext } from "../hooks/useWorkoutContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 import Moment from "react-moment"
 export default function WorkoutDetails({ workout }) {
   const { dispatch } = useWorkoutContext()
+  const { user } = useAuthContext()
   const handleClick = async () => {
+    if (!user){
+      return
+    }
     const res = await fetch(`/api/workouts/${workout._id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${user.token}`,
+      },
     })
     const json = await res.json()
     if (res.ok) {
