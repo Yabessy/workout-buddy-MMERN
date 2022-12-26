@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
 import { useLogout } from "../hooks/useLogout"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function Navbar() {
   const { logout } = useLogout()
+  const { user } = useAuthContext()
   const handleClick = () => {
     logout()
   }
@@ -13,17 +15,26 @@ export default function Navbar() {
           <h1>WorkOut Buddy</h1>
         </Link>
         <nav className="h-full text-base flex items-center space-x-2 font-medium">
-          <div>
-            <button onClick={handleClick} className="border-2 border-blue-300 px-4 py-1 mx-2">LogOut</button>
-          </div>
-          <div className="flex space-x-2">
-            <Link className="hover:underline" to="/login">
-              Login
-            </Link>
-            <Link className="hover:underline" to="/signup">
-              Sign up
-            </Link>
-          </div>
+          {user && (
+            <div>
+              <span>{user.email}</span>
+              <button
+                onClick={handleClick}
+                className="border-2 border-blue-300 px-4 py-1 mx-2">
+                LogOut
+              </button>
+            </div>
+          )}
+          {!user && (
+            <div className="flex space-x-2">
+              <Link className="hover:underline" to="/login">
+                Login
+              </Link>
+              <Link className="hover:underline" to="/signup">
+                Sign up
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
     </header>
