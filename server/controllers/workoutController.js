@@ -37,16 +37,16 @@ export const readWorkout = async (req, res) => {
   }
 }
 export const updateWorkout = async (req, res) => {
-  const { title, load, reps } = req.body
+  const { newtitle, newload, newreps } = req.body
   try {
     const workout = await prisma.workout.update({
       where: {
         id: Number(req.params.id),
       },
       data: {
-        title: title,
-        load: load,
-        reps: reps,
+        title: newtitle,
+        load: Number(newload),
+        reps: Number(newreps),
       },
     })
     res.status(200).json(workout)
