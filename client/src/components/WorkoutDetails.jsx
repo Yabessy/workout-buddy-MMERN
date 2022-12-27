@@ -8,7 +8,7 @@ export default function WorkoutDetails({ workout }) {
   const [showModal, setShowModal] = useState(false)
   const handleClick = async () => {
     const res = await fetch(
-      `http://localhost:3000/api/workouts/${workout.id}`,
+      `http://localhost:3000/api/workouts/${workout.workout_id}`,
       {
         method: "DELETE",
       }

@@ -7,7 +7,7 @@ export function useSignout() {
   const signout = () => {
     localStorage.removeItem("user")
     dispatch({ type: "LOGOUT" })
-    dispatchWorkouts({ type: "SET_WORKOUTS", payload: null })
+    dispatchWorkouts({ type: "READ_WORKOUTS", payload: null })
   }
   return { signout }
 }

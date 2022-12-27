@@ -2,10 +2,12 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 export const createWorkout = async (req, res) => {
+  const user_id = req.user_id
   const { title, load, reps } = req.body
   try {
-    const workout = await prisma.workout.create({
+    const workout = await prisma.workouts.create({
       data: {
+        user_id: Number(user_id),
         title: title,
         load: Number(load),
         reps: Number(reps),
@@ -17,8 +19,13 @@ export const createWorkout = async (req, res) => {
   }
 }
 export const readWorkouts = async (req, res) => {
+  const User_id = req.user_id
   try {
-    const response = await prisma.workout.findMany()
+    const response = await prisma.workouts.findMany({
+      where: {
+        user_id: Number(User_id),
+      },
+    })
     res.status(200).json(response)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -26,7 +33,7 @@ export const readWorkouts = async (req, res) => {
 }
 export const readWorkout = async (req, res) => {
   try {
-    const response = await prisma.workout.findUnique({
+    const response = await prisma.workouts.findUnique({
       where: {
         id: Number(req.params.id),
       },
@@ -39,9 +46,9 @@ export const readWorkout = async (req, res) => {
 export const updateWorkout = async (req, res) => {
   const { newtitle, newload, newreps } = req.body
   try {
-    const workout = await prisma.workout.update({
+    const workout = await prisma.workouts.update({
       where: {
-        id: Number(req.params.id),
+        workout_id: Number(req.params.id),
       },
       data: {
         title: newtitle,
@@ -56,9 +63,9 @@ export const updateWorkout = async (req, res) => {
 }
 export const deleteWorkout = async (req, res) => {
   try {
-    const workout = await prisma.workout.delete({
+    const workout = await prisma.workouts.delete({
       where: {
-        id: Number(req.params.id),
+        workout_id: Number(req.params.id),
       },
     })
     res.status(200).json(workout)

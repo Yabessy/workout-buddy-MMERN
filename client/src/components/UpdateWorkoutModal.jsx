@@ -18,7 +18,7 @@ export default function UpdateWorkoutModal({
     e.preventDefault()
     const workouts = { newtitle, newload, newreps }
     const res = await fetch(
-      `http://localhost:3000/api/workouts/${workout.id}`,
+      `http://localhost:3000/api/workouts/${workout.workout_id}`,
       {
         method: "PUT",
         body: JSON.stringify(workouts),

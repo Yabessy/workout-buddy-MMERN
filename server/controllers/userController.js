@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 
 export const signup = async (req, res) => {
   const { email, password } = req.body
-  const userExists = await prisma.user.findUnique({
+  const userExists = await prisma.users.findUnique({
     where: {
       email: email,
     },
@@ -25,7 +25,7 @@ export const signup = async (req, res) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10)
   try {
-    const user = await prisma.user.create({
+    const user = await prisma.users.create({
       data: {
         email: email,
         password: hashedPassword,
@@ -39,7 +39,7 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body
-  const user = await prisma.user.findUnique({
+  const user = await prisma.users.findUnique({
     where: {
       email: email,
     },

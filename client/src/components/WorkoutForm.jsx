@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutContext"
+import { useAuthContext } from "../hooks/useAuthContext"
+
 export default function WorkoutForm() {
   const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext()
   const [title, setTitle] = useState("")
   const [load, setLoad] = useState("")
   const [reps, setReps] = useState("")
@@ -15,6 +18,7 @@ export default function WorkoutForm() {
       body: JSON.stringify(workout),
       headers: {
         "Content-Type": "application/json",
+        "user_id": user.user_id,
       },
     })
     const json = await res.json()
