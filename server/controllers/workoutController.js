@@ -7,8 +7,8 @@ export const createWorkout = async (req, res) => {
     const workout = await prisma.workout.create({
       data: {
         title: title,
-        load: load,
-        reps: reps,
+        load: Number(load),
+        reps: Number(reps),
       },
     })
     res.status(201).json(workout)
