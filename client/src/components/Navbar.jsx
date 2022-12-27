@@ -1,7 +1,13 @@
-import React from "react"
 import { Link } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
+import { useSignout } from "../hooks/useSignout"
 
 export default function Navbar() {
+  const { signout } = useSignout()
+  const { user } = useAuthContext()
+  const handleClick = () => {
+    signout()
+  }
   return (
     <div>
       <header>
@@ -9,7 +15,7 @@ export default function Navbar() {
           <Link to="/">
             <h1>WorkOut Buddy</h1>
           </Link>
-          {/* <nav className="h-full text-base flex items-center space-x-2 font-medium">
+          <nav className="h-full text-base flex items-center space-x-2 font-medium">
             {user && (
               <div>
                 <span>{user.email}</span>
@@ -30,7 +36,7 @@ export default function Navbar() {
                 </Link>
               </div>
             )}
-          </nav> */}
+          </nav>
         </div>
       </header>
     </div>

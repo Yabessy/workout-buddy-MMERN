@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
     return
   }
   if (!isStrongPassword(password)) {
-    res.status(400).json({ error: "Password not strong enough" })
+    res.status(400).json({ error: "Password not strong enough at least 1Uppercase, 1Number, 1Symbol" })
     return
   }
   const hashedPassword = await bcrypt.hash(password, 10)
