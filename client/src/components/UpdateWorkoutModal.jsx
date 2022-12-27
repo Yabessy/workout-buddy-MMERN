@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutContext"
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function UpdateWorkoutModal({
   showModal,
@@ -43,12 +44,10 @@ export default function UpdateWorkoutModal({
         className="w-96 h-auto mb-4 bg-white shadow-md p-5 relative rounded-md"
         onSubmit={handleSubmit}>
         <div className="flex items-center mb-4 space-x-2">
-          <button
+          <XMarkIcon
             type="button"
             onClick={() => setShowModal(false)}
-            className="w-20 bg-blue-400 px-4 py-1 shadow-md rounded-lg">
-            back
-          </button>
+            className="h-7 cursor-pointer hover:scale-95 rounded-lg"/>
           <h3 className="font-bold text-xl  text-blue-400">Update Workout</h3>
         </div>
 
@@ -84,7 +83,7 @@ export default function UpdateWorkoutModal({
         />
         <button
           type="submit"
-          className="w-20 bg-blue-400 mt-2 mb-4 px-4 py-1 shadow-md rounded-lg">
+          className="w-20 hover:shadow-sm bg-blue-400 mt-2 mb-4 px-4 py-1 shadow-md rounded-lg">
           Update
         </button>
         {newerror && <p className="text-red-500">{newerror}</p>}
